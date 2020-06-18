@@ -13,48 +13,6 @@ CREATE TABLE pessoa(
     idpessoa SERIAL PRIMARY KEY
 );
 
-CREATE TABLE usuario(
-    idusuario SERIAL PRIMARY KEY,
-    idcliente INT NOT NULL,
-    CONSTRAINT fk_usuario_cliente
-        FOREIGN KEY (idusuariofiante)
-        REFERENCES usuario(idusuario)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
-);
-
-CREATE TABLE indicado(
-    idindicado SERIAL PRIMARY KEY,
-    idusuarioindicante INT NOT NULL,
-    idpessoa INT NOT NULL,
-    CONSTRAINT fk_indicado_pessoa
-        FOREIGN KEY (idpessoa)
-        REFERENCES pessoa(idpessoa)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION),
-    CONSTRAINT fk_indicado_usuario
-        FOREIGN KEY (idusuarioindicante)
-        REFERENCES usuario(idusuario)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
-);
-
-CREATE TABLE fiador(
-    idfiador SERIAL PRIMARY KEY,
-    idusuariofiante INT NOT NULL,
-    idpessoa INT NOT NULL,
-        CONSTRAINT fk_fiador_pessoa
-        FOREIGN KEY (idpessoa)
-        REFERENCES pessoa(idpessoa)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION),
-    CONSTRAINT fk_fiador_usuario
-        FOREIGN KEY (idusuariofiante)
-        REFERENCES usuario(idusuario)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
-);
-
 CREATE TABLE cliente(
     email VARCHAR(45) NOT NULL,
     sexo VARCHAR(45) NOT NULL, 
@@ -66,22 +24,64 @@ CREATE TABLE cliente(
         FOREIGN KEY (idpessoa)
         REFERENCES pessoa(idpessoa)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+        ON UPDATE NO ACTION
+);
+
+CREATE TABLE usuario(
+    idusuario SERIAL PRIMARY KEY,
+    idcliente INT NOT NULL,
+    CONSTRAINT fk_usuario_cliente
+        FOREIGN KEY (idusuario)
+        REFERENCES cliente(idcliente)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+
+CREATE TABLE indicado(
+    idindicado SERIAL PRIMARY KEY,
+    idusuarioindicante INT NOT NULL,
+    idpessoa INT NOT NULL,
+    CONSTRAINT fk_indicado_pessoa
+        FOREIGN KEY (idpessoa)
+        REFERENCES pessoa(idpessoa)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT fk_indicado_usuario
+        FOREIGN KEY (idusuarioindicante)
+        REFERENCES usuario(idusuario)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+
+CREATE TABLE fiador(
+    idfiador SERIAL PRIMARY KEY,
+    idusuariofiante INT NOT NULL,
+    idpessoa INT NOT NULL,
+        CONSTRAINT fk_fiador_pessoa
+        FOREIGN KEY (idpessoa)
+        REFERENCES pessoa(idpessoa)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT fk_fiador_usuario
+        FOREIGN KEY (idusuariofiante)
+        REFERENCES usuario(idusuario)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
 CREATE TABLE proprietario(
     idproprietario SERIAL PRIMARY KEY,
-    idcliente INT PRIMARY KEY,
+    idcliente INT NOT NULL,
     CONSTRAINT fk_proprietario_cliente
         FOREIGN KEY (idcliente)
         REFERENCES cliente(idcliente)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+        ON UPDATE NO ACTION
 );
 
 CREATE TABLE cargo(
     salariobase MONEY NOT NULL,
-    idcargo SERIAL PRIMARY KEY,
+    idcargo SERIAL PRIMARY KEY
 );
 
 CREATE TABLE funcionario(
@@ -96,16 +96,16 @@ CREATE TABLE funcionario(
         FOREIGN KEY (idpessoa)
         REFERENCES pessoa(idpessoa)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION),
+        ON UPDATE NO ACTION,
     CONSTRAINT fk_funcionario_cargo
         FOREIGN KEY (idcargo)
         REFERENCES cargo(idcargo)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+        ON UPDATE NO ACTION
 );
 
 CREATE TABLE imovel(
-	idimovel SERIAL INT PRIMARY KEY,
+	idimovel SERIAL PRIMARY KEY,
 	area INT NOT NULL,
 	rua VARCHAR(45) NOT NULL,
 	bairro VARCHAR(45) NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE imovel(
 		FOREIGN KEY (idproprietario)
 		REFERENCES proprietario(idproprietario)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION)
+		ON UPDATE NO ACTION
 );
 
 CREATE TABLE seguro(
@@ -134,7 +134,7 @@ CREATE TABLE seguro(
         FOREIGN KEY (idimovel)
         REFERENCES imovel(idimovel)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+        ON UPDATE NO ACTION
 );
 
 CREATE TABLE foto(
@@ -145,73 +145,76 @@ CREATE TABLE foto(
         FOREIGN KEY (idimovel)
         REFERENCES imovel(idimovel)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+        ON UPDATE NO ACTION
 );
 
 
 CREATE TABLE terreno(
-	idterreno SERIAL INT PRIMARY KEY,
+	idterreno SERIAL PRIMARY KEY,
 	largura INT NOT NULL,
 	comprimento INT NOT NULL,
 	aclivedeclive INT NOT NULL,
+	idimovel INT NOT NULL,
 	CONSTRAINT fk_terreno_imovel
 		FOREIGN KEY (idimovel)
 		REFERENCES imovel(idimovel)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION)
+		ON UPDATE NO ACTION
 );
 
 
 CREATE TABLE salacomercial(
-	idsalacomercial SERIAL INT PRIMARY KEY,
+	idsalacomercial SERIAL PRIMARY KEY,
 	qtdbanheiros INT NOT NULL,
 	qtdcomodos INT NOT NULL,
+	idimovel INT NOT NULL,
 	CONSTRAINT fk_salacomercial_imovel
 		FOREIGN KEY (idimovel)
 		REFERENCES imovel(idimovel)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION)
+		ON UPDATE NO ACTION
 );
 
 
 CREATE TABLE imovelresidencial(
-	idimovelresidencial SERIAL INT PRIMARY KEY,
+	idimovelresidencial SERIAL PRIMARY KEY,
 	qtdquartos INT NOT NULL,
 	qtdsuites INT NOT NULL,
 	qtdsalaestar INT NOT NULL,
 	qtdsalasjantar INT NOT NULL,
 	armarioembutido BOOLEAN,
 	descricao VARCHAR (45) NOT NULL,
+	idimovel INT NOT NULL,
 	CONSTRAINT fk_imovelresidencial_imovel
 		FOREIGN KEY (idimovel)
-		REFERENCES imovelresidencial(idimovelresidencial)
+		REFERENCES imovel(idimovel)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION)
+		ON UPDATE NO ACTION
 );
 
 
-
-
 CREATE TABLE casa(
-	idcasa SERIAL INT PRIMARY KEY,
+	idcasa SERIAL PRIMARY KEY,
+	idimovelresidencial INT NOT NULL,
 	CONSTRAINT fk_casa_imovelresidencial
-		FOREIGN KEY (imovelresidencial)
+		FOREIGN KEY (idimovelresidencial)
 		REFERENCES imovelresidencial(idimovelresidencial)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION)
+		ON UPDATE NO ACTION
 );
 
 
 	CREATE TABLE apartamento(
-	idapartamento SERIAL INT PRIMARY KEY,
+	idapartamento SERIAL PRIMARY KEY,
 	andar INT NOT NULL,
 	valorcondominio  INT NOT NULL,
 	portaria24h  INT NOT NULL,
+	idimovelresidencial INT NOT NULL,
 	CONSTRAINT fk_apartamento_imovelresidencial
-		FOREIGN KEY (imovelresidencial)
-		REFERENCES imovel(imovelresidencial)
+		FOREIGN KEY (idimovelresidencial)
+		REFERENCES imovelresidencial(idimovelresidencial)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION)
+		ON UPDATE NO ACTION
 );
 
 CREATE TABLE formapagamento(
@@ -233,21 +236,21 @@ CREATE TABLE transacao(
         FOREIGN KEY (idusuario)
         REFERENCES usuario(idusuario)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION),
+        ON UPDATE NO ACTION,
     CONSTRAINT fk_transacao_funcionario
         FOREIGN KEY (idfuncionario)
         REFERENCES funcionario(idfuncionario)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION),
+        ON UPDATE NO ACTION,
     CONSTRAINT fk_transacao_formapagamento
         FOREIGN KEY (idformapagamento)
         REFERENCES formapagamento(idformapagamento)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION),
+        ON UPDATE NO ACTION,
     CONSTRAINT fk_transacao_idimovel
         FOREIGN KEY (idimovel)
         REFERENCES imovel(idimovel)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+        ON UPDATE NO ACTION
 );
 
