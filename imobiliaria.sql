@@ -254,3 +254,62 @@ CREATE TABLE transacao(
         ON UPDATE NO ACTION
 );
 
+
+--inserts
+
+insert into pessoa(nome, telefone, endereco, cpf) values('Guilherme', '1111111111', 'Rua das Palmeiras', '11100077771');
+insert into pessoa(nome, telefone, endereco, cpf) values('Jean', '2222222222', 'Rua das Pinhais', '11100077772');
+
+insert into cliente(email, sexo, estadocivil, profissao, idpessoa) values('guilherme@email.com', 'masculino', 'casado', 'vigia', 1);
+insert into cliente(email, sexo, estadocivil, profissao, idpessoa) values('jean@email.com', 'masculino', 'solteiro', 'vendedor', 2);
+
+insert into usuario(idcliente) values(1);
+insert into usuario(idcliente) values(2);
+
+insert into indicado(idusuarioindicante, idpessoa) values(1, 1);
+insert into indicado(idusuarioindicante, idpessoa) values(2, 2);
+
+insert into fiador(idusuariofiante,idpessoa) values(1, 1);
+insert into fiador(idusuariofiante,idpessoa) values(2, 2);
+
+insert into proprietario(idcliente) values(1);
+insert into proprietario(idcliente) values(2);
+
+insert into cargo(salariobase) values(2500.00);
+insert into cargo(salariobase) values(3500.00);
+
+insert into funcionario(telcelular, dataingimobiliaria, usuario, senha, idpessoa) values('3333333333', '2011-09-06', 'jean', 'jean123', 1);
+insert into funcionario(telcelular, dataingimobiliaria, usuario, senha, idpessoa) values('3333333334', '2011-06-06', 'guilherme', 'guilherme123', 2);
+
+insert into imovel(area, rua, bairro, estadolocacao, estadovenda, valorrealvenda, valorsugeridovenda, valorsugeridoaluguel, dataconstrucao, idproprietario) values(500,'Rua da arvore', 'Bairro da mesa', TRUE, TRUE, 20000.00, 10000.00, 1000.00, '2020-10-06', 1);
+insert into imovel(area, rua, bairro, estadolocacao, estadovenda, valorrealvenda, valorsugeridovenda, valorsugeridoaluguel, dataconstrucao, idproprietario) values(500,'Rua da roda', 'Bairro da cerca', FALSE, FALSE, 30000.00, 20000.00, 2000.00, '2020-10-06', 1);
+
+insert into seguro(nomedaseguradora, cnpj, tipodoseguro, valor, idimovel) values('Segura Tudo', '12345678987654', 'roubo', 200.00, 1);
+insert into seguro(nomedaseguradora, cnpj, tipodoseguro, valor, idimovel) values('Grande Seguro', '12345678986655', 'incendio', 600.00, 2);
+
+insert into foto(nomefoto, idimovel) values('Casa preta', 1);
+insert into foto(nomefoto, idimovel) values('Casa branca', 2);
+
+insert into terreno(largura, comprimento, aclivedeclive, idimovel) values(500, 600, 1);
+insert into terreno(largura, comprimento, aclivedeclive, idimovel) values(700, 800, 2);
+
+insert into salacomercial(qtdbanheiros, qtdcomodos, idimovel) values(1, 5, 1);
+insert into salacomercial(qtdbanheiros, qtdcomodos, idimovel) values(2, 6, 2);
+
+insert into imovelresidencial(qtdquartos, qtdsuites, qtdsalasestar, qtdsalasjantar, armarioembutido, descricao, idimovel) values(2, 1, 1, 1, FALSE, 'Imovel confortavel', 1);
+insert into imovelresidencial(qtdquartos, qtdsuites, qtdsalasestar, qtdsalasjantar, armarioembutido, descricao, idimovel) values(3, 2, 2, 2, TRUE, 'Imovel de luxo', 2);
+
+insert into casa(idimovelresidencial) values(1);
+insert into casa(idimovelresidencial) values(2);
+
+insert into apartamento(andar, valorcondominio, portaria24h, idimovelresidencial) values(2, 100000.00, TRUE, 1);
+insert into apartamento(andar, valorcondominio, portaria24h, idimovelresidencial) values(1, 50000.00, FALSE, 2);
+
+insert into formapagamento(nomeformapagamento) values('credito');
+insert into formapagamento(nomeformapagamento) values('dinheiro');
+
+insert into transacao(datatransacao, comissaofuncionario, idusuario, idfuncionario, idformapagamento, idimovel, aluguelouvenda) values('2011-10-06', 150.00, 1, 1, 1, TRUE);
+insert into transacao(datatransacao, comissaofuncionario, idusuario, idfuncionario, idformapagamento, idimovel, aluguelouvenda) values('2011-10-06', 160.00, 2, 2, 2, FALSE);
+
+
+
