@@ -114,8 +114,9 @@ CREATE TABLE imovel(
 	valorrealvenda INT NOT NULL,
 	valorsugeridovenda INT NOT NULL,
 	valorsugeridoaluguel INT NOT NULL,
-	dataconstrucao INT NOT NULL
-CONSTRAINT fk_imovel_proprietario
+	dataconstrucao INT NOT NULL,
+	idproprietario INT NOT NULL,
+	CONSTRAINT fk_imovel_proprietario
 		FOREIGN KEY (idproprietario)
 		REFERENCES proprietario(idproprietario)
 		ON DELETE NO ACTION
