@@ -8,18 +8,12 @@ SELECT * FROM usuario as u JOIN cliente as c ON u.idcliente = c.idcliente JOIN p
 --busca dados dos clientes proprietarios
 SELECT * FROM proprietario as prop JOIN cliente as c ON prop.idcliente = c.idcliente JOIN pessoa as p ON c.idpessoa = p.idpessoa;
 
---seleciona todos os imoveis
-SELECT * FROM imovel;
-
 --seleciona todos as imagens dos imoveis
 SELECT * FROM foto as f JOIN imovel as i ON f.idimovel = i.idimovel;
 
 --seleciona todos os apartamentos
 SELECT * FROM apartamento as a JOIN imovelresidencial as ir ON a.idimovelresidencial = ir.idimovelresidencial
   JOIN imovel as i ON ir.idimovel = i.idimovel;
-  
---seleciona todos os funcionarios
-SELECT * FROM funcionario as f JOIN pessoa as p ON f.idpessoa = p.idpessoa;
 
 --seleciona todos os funcionarios e seus salarios base
 SELECT p.nome, c.salariobase FROM funcionario as f JOIN pessoa as p ON f.idpessoa = p.idpessoa JOIN cargo as c ON f.idcargo = c.idcargo;
