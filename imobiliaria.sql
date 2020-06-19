@@ -278,8 +278,8 @@ insert into proprietario(idcliente) values(2);
 insert into cargo(salariobase) values(2500.00);
 insert into cargo(salariobase) values(3500.00);
 
-insert into funcionario(telcelular, dataingimobiliaria, usuario, senha, idpessoa, idcargo) values('3333333333', '2011-09-06', 'jean', 'jean123', 1, 1);
-insert into funcionario(telcelular, dataingimobiliaria, usuario, senha, idpessoa, idcargo) values('3333333334', '2011-06-06', 'guilherme', 'guilherme123', 2, 2);
+insert into funcionario(telcelular, dataingimobiliaria, usuario, senha, idpessoa) values('3333333333', '2011-09-06', 'jean', 'jean123', 1);
+insert into funcionario(telcelular, dataingimobiliaria, usuario, senha, idpessoa) values('3333333334', '2011-06-06', 'guilherme', 'guilherme123', 2);
 
 insert into imovel(area, rua, bairro, estadolocacao, estadovenda, valorrealvenda, valorsugeridovenda, valorsugeridoaluguel, dataconstrucao, idproprietario) values(500,'Rua da arvore', 'Bairro da mesa', TRUE, TRUE, 20000.00, 10000.00, 1000.00, '2020-10-06', 1);
 insert into imovel(area, rua, bairro, estadolocacao, estadovenda, valorrealvenda, valorsugeridovenda, valorsugeridoaluguel, dataconstrucao, idproprietario) values(500,'Rua da roda', 'Bairro da cerca', FALSE, FALSE, 30000.00, 20000.00, 2000.00, '2020-10-06', 1);
@@ -312,4 +312,26 @@ insert into transacao(datatransacao, comissaofuncionario, idusuario, idfuncionar
 insert into transacao(datatransacao, comissaofuncionario, idusuario, idfuncionario, idformapagamento, idimovel, aluguelouvenda) values('2011-10-06', 160.00, 2, 2, 2, FALSE);
 
 
+--selects
 
+--busca dados dos clientes usuario
+SELECT * from usuario as u JOIN cliente as c ON u.idcliente = c.idcliente JOIN pessoa as p ON c.idpessoa = p.idpessoa;
+
+--busca dados dos clientes proprietarios
+SELECT * from proprietario as prop JOIN cliente as c ON prop.idcliente = c.idcliente JOIN pessoa as p ON c.idpessoa = p.idpessoa;
+
+--seleciona todos os imoveis
+SELECT * FROM imovel;
+
+--seleciona todos as imagens dos imoveis
+SELECT * FROM foto as f JOIN imovel as i ON f.idimovel = i.idimovel;
+
+--seleciona todos os apartamentos
+SELECT * FROM apartamento as a JOIN imovelresidencial as ir ON a.idimovelresidencial = ir.idimovelresidencial
+  JOIN imovel as i ON ir.idimovel = i.idimovel;
+  
+--seleciona todos os funcionarios
+SELECT * FROM funcionario as f JOIN pessoa as p ON f.idpessoa = p.idpessoa;
+
+--seleciona todos os funcionarios e seus salarios base
+SELECT p.nome, c.salariobase FROM funcionario as f JOIN pessoa as p ON f.idpessoa = p.idpessoa JOIN cargo as c ON f.idcargo = c.idcargo;
