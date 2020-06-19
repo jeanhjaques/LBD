@@ -257,6 +257,8 @@ CREATE TABLE transacao(
 
 --inserts
 
+SET search_path TO imobiliaria;
+
 insert into pessoa(nome, telefone, endereco, cpf, idpessoa) values('Guilherme', '1111111111', 'Rua das Palmeiras', '11100077771', 1);
 insert into pessoa(nome, telefone, endereco, cpf, idpessoa) values('Jean', '2222222222', 'Rua das Pinhais', '11100077772', 2);
 
@@ -290,14 +292,14 @@ insert into seguro(idseguro, nomedaseguradora, cnpj, tipodoseguro, valor, idimov
 insert into foto(nomefoto, idfoto, idimovel) values('Casa preta', 1, 1);
 insert into foto(nomefoto, idfoto, idimovel) values('Casa branca', 2, 2);
 
-insert into terreno(idterreno, largura, comprimento, aclivedeclive, idimovel) values(1, 500, 600, 1);
-insert into terreno(idterreno, largura, comprimento, aclivedeclive, idimovel) values(2, 700, 800, 2);
+insert into terreno(idterreno, largura, comprimento, aclivedeclive, idimovel) values(1, 500, 600, 1, 1);
+insert into terreno(idterreno, largura, comprimento, aclivedeclive, idimovel) values(2, 700, 800, 2, 2);
 
 insert into salacomercial(idsalacomercial, qtdbanheiros, qtdcomodos, idimovel) values(1, 1, 5, 1);
 insert into salacomercial(idsalacomercial, qtdbanheiros, qtdcomodos, idimovel) values(2, 2, 6, 2);
 
-insert into imovelresidencial(idimovelresidencial, qtdquartos, qtdsuites, qtdsalasestar, qtdsalasjantar, armarioembutido, descricao, idimovel) values(1, 2, 1, 1, 1, FALSE, 'Imovel confortavel', 1);
-insert into imovelresidencial(idimovelresidencial, qtdquartos, qtdsuites, qtdsalasestar, qtdsalasjantar, armarioembutido, descricao, idimovel) values(2, 3, 2, 2, 2, TRUE, 'Imovel de luxo', 2);
+insert into imovelresidencial(idimovelresidencial, qtdquartos, qtdsuites, qtdsalaestar, qtdsalasjantar, armarioembutido, descricao, idimovel) values(1, 2, 1, 1, 1, FALSE, 'Imovel confortavel', 1);
+insert into imovelresidencial(idimovelresidencial, qtdquartos, qtdsuites, qtdsalaestar, qtdsalasjantar, armarioembutido, descricao, idimovel) values(2, 3, 2, 2, 2, TRUE, 'Imovel de luxo', 2);
 
 insert into casa(idcasa, idimovelresidencial) values(1, 1);
 insert into casa(idcasa, idimovelresidencial) values(2, 2);
@@ -308,8 +310,9 @@ insert into apartamento(idapartamento, andar, valorcondominio, portaria24h, idim
 insert into formapagamento(idformapagamento, nomeformapagamento) values(1, 'credito');
 insert into formapagamento(idformapagamento, nomeformapagamento) values(2, 'dinheiro');
 
-insert into transacao(datatransacao, comissaofuncionario, nrocontrato, idtransacao, idusuario, idfuncionario, idformapagamento, idimovel, aluguelouvenda) values('2020-10-06', 150.00,1, 1, 1, 1, 1, TRUE);
-insert into transacao(datatransacao, comissaofuncionario, nrocontrato, idtransacao, idusuario, idfuncionario, idformapagamento, idimovel, aluguelouvenda) values('2019-10-06', 160.00,2, 2, 2, 2, 2, FALSE);
+insert into transacao(datatransacao, comissaofuncionario, nrocontrato, idtransacao, idusuario, idfuncionario, idformapagamento, idimovel, aluguelouvenda) values('2020-10-06', 150.00,1, 1, 1, 1, 1, 1, 'aluguel');
+insert into transacao(datatransacao, comissaofuncionario, nrocontrato, idtransacao, idusuario, idfuncionario, idformapagamento, idimovel, aluguelouvenda) values('2019-10-06', 160.00,2, 2, 2, 2, 2, 2, 'venda')
+
 
 --selects
 
