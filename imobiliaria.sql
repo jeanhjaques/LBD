@@ -315,10 +315,10 @@ insert into transacao(datatransacao, comissaofuncionario, idusuario, idfuncionar
 --selects
 
 --busca dados dos clientes usuario
-SELECT * from usuario as u JOIN cliente as c ON u.idcliente = c.idcliente JOIN pessoa as p ON c.idpessoa = p.idpessoa;
+SELECT * FROM usuario as u JOIN cliente as c ON u.idcliente = c.idcliente JOIN pessoa as p ON c.idpessoa = p.idpessoa;
 
 --busca dados dos clientes proprietarios
-SELECT * from proprietario as prop JOIN cliente as c ON prop.idcliente = c.idcliente JOIN pessoa as p ON c.idpessoa = p.idpessoa;
+SELECT * FROM proprietario as prop JOIN cliente as c ON prop.idcliente = c.idcliente JOIN pessoa as p ON c.idpessoa = p.idpessoa;
 
 --seleciona todos os imoveis
 SELECT * FROM imovel;
@@ -335,3 +335,12 @@ SELECT * FROM funcionario as f JOIN pessoa as p ON f.idpessoa = p.idpessoa;
 
 --seleciona todos os funcionarios e seus salarios base
 SELECT p.nome, c.salariobase FROM funcionario as f JOIN pessoa as p ON f.idpessoa = p.idpessoa JOIN cargo as c ON f.idcargo = c.idcargo;
+
+--seleciona todas as transações do tipo aluguel
+SELECT * FROM transacao WHERE aluguelouvenda = 'aluguel';
+
+--seleciona todas as transações ocorridas em 2020
+SELECT * FROM transacao WHERE datatransacao > '31/12/2019';
+
+--seleciona todas as transacoes onde a forma de pagamento foi credito
+SELECT * FROM transacao as t JOIN formapagamento as f ON t.idformapagamento = f.idformapagamento WHERE f.nomeformapagamento = 'crédito';
