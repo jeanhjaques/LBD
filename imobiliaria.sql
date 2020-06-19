@@ -346,3 +346,12 @@ SELECT * FROM transacao WHERE datatransacao > '31/12/2019';
 
 --seleciona todas as transacoes onde a forma de pagamento foi credito
 SELECT * FROM transacao as t JOIN formapagamento as f ON t.idformapagamento = f.idformapagamento WHERE f.nomeformapagamento = 'crédito';
+
+--busca todas as transações feitas em 2020 e com comissão do funcionário maior que R$ 120
+SELECT * FROM transacao WHERE datatransacao > '2019/12/31' AND 
+     (SELECT '120.00'::money) > comissaofuncionario;
+	 
+--cria view para mostrar funcionarios maior que 120
+CREATE OR REPLACE VIEW dinheiro AS
+SELECT * FROM transacao WHERE datatransacao > '2019/12/31' AND 
+     (SELECT '120.00'::money) > comissaofuncionario;
