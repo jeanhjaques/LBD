@@ -4,7 +4,6 @@ CREATE SCHEMA imobiliaria;
 
 SET search_path TO imobiliaria;
 
-
 CREATE TABLE pessoa(
     nome VARCHAR(45) NOT NULL, 
     telefone VARCHAR(45) NOT NULL,
@@ -111,10 +110,10 @@ CREATE TABLE imovel(
 	bairro VARCHAR(45) NOT NULL,
 	estadolocacao BOOLEAN,
 	estadovenda BOOLEAN,
-	valorrealvenda INT NOT NULL,
-	valorsugeridovenda INT NOT NULL,
-	valorsugeridoaluguel INT NOT NULL,
-	dataconstrucao INT NOT NULL,
+	valorrealvenda MONEY NOT NULL,
+	valorsugeridovenda MONEY NOT NULL,
+	valorsugeridoaluguel MONEY NOT NULL,
+	dataconstrucao DATE NOT NULL,
 	idproprietario INT NOT NULL,
 	CONSTRAINT fk_imovel_proprietario
 		FOREIGN KEY (idproprietario)
@@ -207,8 +206,8 @@ CREATE TABLE casa(
 	CREATE TABLE apartamento(
 	idapartamento SERIAL PRIMARY KEY,
 	andar INT NOT NULL,
-	valorcondominio  INT NOT NULL,
-	portaria24h  INT NOT NULL,
+	valorcondominio  MONEY NOT NULL,
+	portaria24h  BOOLEAN NOT NULL,
 	idimovelresidencial INT NOT NULL,
 	CONSTRAINT fk_apartamento_imovelresidencial
 		FOREIGN KEY (idimovelresidencial)
@@ -231,7 +230,7 @@ CREATE TABLE transacao(
     idfuncionario INT NOT NULL,
     idformapagamento INT NOT NULL,
     idimovel INT NOT NULL,
-    aluguelouvenda BOOLEAN NOT NULL,
+    aluguelouvenda VARCHAR(45) NOT NULL,
     CONSTRAINT fk_transacao_usuario
         FOREIGN KEY (idusuario)
         REFERENCES usuario(idusuario)
@@ -253,6 +252,7 @@ CREATE TABLE transacao(
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );
+
 
 
 --inserts
