@@ -152,7 +152,7 @@ CREATE TABLE terreno(
 	idterreno SERIAL PRIMARY KEY,
 	largura INT NOT NULL,
 	comprimento INT NOT NULL,
-	aclivedeclive INT NOT NULL,
+	aclivedeclive BOOLEAN NOT NULL,
 	idimovel INT NOT NULL,
 	CONSTRAINT fk_terreno_imovel
 		FOREIGN KEY (idimovel)
@@ -292,8 +292,8 @@ insert into seguro(idseguro, nomedaseguradora, cnpj, tipodoseguro, valor, idimov
 insert into foto(nomefoto, idfoto, idimovel) values('Casa preta', 1, 1);
 insert into foto(nomefoto, idfoto, idimovel) values('Casa branca', 2, 2);
 
-insert into terreno(idterreno, largura, comprimento, aclivedeclive, idimovel) values(1, 500, 600, 1, 1);
-insert into terreno(idterreno, largura, comprimento, aclivedeclive, idimovel) values(2, 700, 800, 2, 2);
+insert into terreno(idterreno, largura, comprimento, aclivedeclive, idimovel) values(1, 500, 600, TRUE, 1);
+insert into terreno(idterreno, largura, comprimento, aclivedeclive, idimovel) values(2, 700, 800, FALSE, 2);
 
 insert into salacomercial(idsalacomercial, qtdbanheiros, qtdcomodos, idimovel) values(1, 1, 5, 1);
 insert into salacomercial(idsalacomercial, qtdbanheiros, qtdcomodos, idimovel) values(2, 2, 6, 2);
